@@ -72,18 +72,6 @@ def thomson(exp_posfix, alfa):
 
             ultim_nodo = pila_fin.pop()
             penultim_nodo = pila_fin.pop()
-
-            '''
-            try:
-                ultim_nodo = pila_fin[-1]
-                penultim_nodo = pila_fin[-2]
-            except:                
-                ultim_nodo = pila_fin.pop()
-                penultim_nodo = prim
-            
-            for no_se in range(len(pila_fin)):
-                pila_fin.pop()
-            '''
             limpias = sacar_lista(penultim)
 
             for val in limpias:
@@ -93,11 +81,8 @@ def thomson(exp_posfix, alfa):
                 
             pila_fin.append([penultim_nodo[0], ultim_nodo[1]])
             nodos.append([limpias, ultim])
-
-            #Corrigiendo concatenaciones
-            #if exp_posfix[i - 1] == '|' or exp_posfix[i - 1] == '*' or exp_posfix[i - 1] == '_':
             try:
-                #Si nodos tiene solo un nivel
+                #Si nodo tiene solo un nivel
                 li = []
                 for l in nodos[0][-1]:
                     for l2 in l:
@@ -113,7 +98,7 @@ def thomson(exp_posfix, alfa):
                     nodos[0][0].append([nodos[0][0][-1][-1], EPSILON, li[-2]])
             except:
                 try:
-                    #Si nodos tiene dos niveles
+                    #Si nodo tiene dos niveles
                     li = []
                     for l in nodos[0][-1]:
                         if type(l) is int:
@@ -161,13 +146,6 @@ def thomson(exp_posfix, alfa):
                                 nodos[0][0].append([nodos[-1][0][-1][-1], EPSILON, li[-2]])
                 except:
                     pass
-
-                       
-            '''
-            if exp_posfix[i-1] == '*' or exp_posfix[i-1] == '|':
-                last = sorted(ultim, key=itemgetter(0))
-                nodos.append([limpias[-1][-1], 'wasd', last[-1][0]])
-            '''
             
     respuesta = sorted(sacar_lista(nodos), key=itemgetter(0))
 
@@ -175,7 +153,4 @@ def thomson(exp_posfix, alfa):
     for i in range(len(respuesta) - 1, - 1, - 1):        
         if(respuesta[i] in respuesta[:i]):
             del(respuesta[i])
-
-    
-
     return respuesta, pila_fin
