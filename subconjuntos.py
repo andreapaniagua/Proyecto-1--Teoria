@@ -6,7 +6,7 @@ from libs import *
 
 EPSILON = 'ε'
 #trans: lista de nodos; estados de transicion
-#strt_end, lim: nodos de inicio/fin
+#strt_end, lim: nodos de inicio a fin
 def subconjuntos(trans, strt_end):
     
     #Simbolos de la expresion
@@ -15,38 +15,33 @@ def subconjuntos(trans, strt_end):
     for i in range(len(trans)):
         if trans[i][1] != EPSILON and trans[i][1] not in symbols:
             symbols.append(trans[i][1])
-
-    
-
+#listas vacias para almacenar
     estados = []
     new_lim = []
     tabla_trans = []
 
-    #Calculando la cerradura-e de las transiciones de Thomson
+    #Calculando la cerradura e de las transiciones de Thomson
     estados_raw = []
     estados_raw = cerr_e(trans, strt_end[0][0])
     estados.append(estados_raw)
     new_lim.append(estados_raw)
 
-    #Calculando la cerradura-e de la funcion Move() de cada transicion por simbolo
+    #Calculando la cerradura e de la funcion Mmve() de cada transicion por simbolo
     estado = 0
     while estado < len(estados):
         for symbol in symbols:
-            #move(T, a)
             move_res = move(trans, estados[estado], symbol)
-            #Cerradura-e de move(T, a)
             e_move = cerr_e(trans, move_res)
             tabla_trans.append([estados[estado], symbol, e_move])
 
-            #Appendeando nuevos limites de DFA
+            #Append nuevos limites de DFA
             for nodo in strt_end:
                 if nodo[1] in e_move:
                     new_lim.append(e_move)
-            #Appendenado nuevos estados que no sean vacios
+            #Append nuevos estados que no sean vacios
             if e_move not in estados and e_move is not None:
                 estados.append(e_move)
         estado += 1
-    
     #Eliminando estados vacios
     estado = 0
     while estado < len(tabla_trans):
@@ -66,13 +61,13 @@ def subconjuntos(trans, strt_end):
         if tran[0] in estados and tran[2] in estados:
             tabla_estados.append([chr(65 + estados.index(tran[0])), tran[1], chr(65 + estados.index(tran[2]))])
     
-    #Estados iniciales/finales
+    #Estados iniciales a finales
     lista_estados = []
 
     for item in tabla_estados:
         lista_estados.append([item[0], item[2]])
 
-    #convietiendo a estados "puros"
+    #convietiendo a estados
     estados_dict = dict()
     for item in lista_estados:
         if (item[0] in estados_dict.keys()) and (item[1] not in estados_dict[item[0]]):
