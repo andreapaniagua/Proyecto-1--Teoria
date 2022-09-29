@@ -25,7 +25,13 @@ la expresión regular r=(b|b)*abb(a|b)* y la cadena w=babbaaaaa. El símbolo que
 designado por el programador o programadora (debe ser algo razonable, no una letra o un número con
 altas probabilidades de ser usado en otro aspecto del proyecto).
 
-
+##Calificación
+- Transformación de expresión regular a postfix (2)
+- Generación de AFN (archivo) (3)
+- Conversión AFN a AFD (archivo) (4)
+- Generación de AFD Directo (archivo) (4)
+- Minimización de AFD’s (archivo) (4)
+- Simulación AFN y AFD (3)
 
 ## Correrlo
 
