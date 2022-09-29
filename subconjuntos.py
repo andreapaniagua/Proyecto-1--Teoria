@@ -75,4 +75,32 @@ def subconjuntos(trans, strt_end):
         else:
             estados_dict[item[0]] = [item[1]]
 
-    return(tabla_estados, lista_estados)
+    #Calculando el minimo
+    minimo = []
+    keys = list(estados_dict.keys())
+    vals = list(estados_dict.values())
+    
+    for key in range(len(keys)):
+        for v in range(len(vals)):
+            if keys[key] not in vals[v]:
+                for key2 in range(len(keys)):
+                    if keys[key2] in vals[key]:
+                        key2 += 1
+                    else:
+                        for w in vals[v]:
+                            try:
+                                sym = tabla_estados[lista_estados.index([keys[key], w])][1]
+                                minimo.append([keys[key], sym, keys[key2]])
+                            except:
+                                continue
+    
+    #Eliminar duplicados
+    for i in range(len(minimo) - 1, - 1, - 1):        
+        if(minimo[i] in minimo[:i]):
+            del(minimo[i])
+
+    min_end = []
+    for item in minimo:
+        min_end.append([item[0], item[2]])
+
+    return(tabla_estados, lista_estados, minimo, min_end)

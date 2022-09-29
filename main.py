@@ -38,12 +38,15 @@ print("\nNodos inicial-final: \n", thom_trans)
 grafo(thom_resultado, thom_trans, "thomson")
 #print(thom_trans)
 # print(thom_resultado)
-sub_estados, sub_end, = subconjuntos(thom_resultado, thom_trans)
+sub_estados, sub_end, minimo, min_end = subconjuntos(thom_resultado, thom_trans)
 print("\nTabla de estados: ")
 print(sub_estados)
 print("\nEstados de inicio/fin: ")
 print(sub_end)
+print("\nMinimo: ")
+print(minimo)
 grafo(sub_estados, sub_end, "subconjuntos")
+grafo(minimo, min_end, "minimo")
 
 #ingreso de cadena
 cadena = input("Ingrese la cadena de caracteres para probar la simulación: \n")
@@ -58,5 +61,8 @@ if res_s == 1:
 
 if res_s == 0:
     print("La cadena no pertenece a subconjuntos")
+    print("La cadena no pertenece a minimo")
+
 if res_s == 1:
     print("La cadena si pertenece a subconjuntos")
+    print("La cadena si pertenece a minimo")
